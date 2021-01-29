@@ -1,0 +1,39 @@
+/* settings */
+
+#sr-settings-tabs {
+	font-family: '-apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 20px;
+	color: #444444;
+}
+
+.sr-form-group {
+	padding: 10px;
+}
+
+.sr-form-group label {
+	display: inline-block;
+	width: 20%;
+}
+
+.sr-form-group label, .sr-form-group textarea {
+	vertical-align: top;
+}
+
+.sr-form-group input,
+.sr-form-group select,
+.sr-form-group textarea  {
+}
+
+.sr-settings-submit {
+	margin-top: 2%;
+}
+
+.sr-settings-submit input[type="submit"] {
+	margin: auto !important;
+	display: block !important;
+}
+
+/* settings */

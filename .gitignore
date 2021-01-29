@@ -1,0 +1,5 @@
+node_modules
+*.log
+vendor
+package-lock.json
+composer.lock
