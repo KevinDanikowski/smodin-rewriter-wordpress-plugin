@@ -32,14 +32,13 @@
 	}
 
 	#smodinrewriter > #smodinrewriter-button {
-		
 	}
 
 	#smodinrewriter-modal, .smodinrewriter-section {
 		display: none;
 	}
 
-	.smodinrewriter-confirm {
+	.smodinrewriter-confirm, .smodinrewriter-error {
 		text-align: center;
 		padding: 5px;
 	}
@@ -83,7 +82,7 @@
 <div id="smodinrewriter-modal" class="smodinrewriter-dialog" title="<?php _e( 'Smodin Rewrite', 'smodinrewriter' );?>">
 	<div class="smodinrewriter-error smodinrewriter-section"></div>
 	<div class="smodinrewriter-success smodinrewriter-section">
-		<?php wp_editor( '', 'smodinrewriter-rewritten', array( 'media_buttons' => false, 'teeny' => true,  ) ); ?>
+		<?php wp_editor( '', 'smodinrewriter-rewritten', array( 'media_buttons' => false, 'teeny' => true, 'tinymce' => false, 'quicktags' => false ) ); ?>
 	</div>
 	<div class="smodinrewriter-confirm smodinrewriter-section">
 		<div class="smodinrewriter-prewrite-message"></div>

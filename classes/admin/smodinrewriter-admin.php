@@ -137,9 +137,6 @@ class SmodinRewriter_Admin {
 				$new = SmodinRewriter_Util::call_api( $content, $_POST['lang'], intval( $_POST['strength'] ) );
 				wp_send_json_success( array( 'content' => $content, 'rewritten' => $new ) );
 				break;
-			case 'publish':
-				$content = trim( $_POST['content'] );
-				break;
 		}
 	}
 

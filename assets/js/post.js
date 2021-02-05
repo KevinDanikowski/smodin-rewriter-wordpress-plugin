@@ -143,7 +143,8 @@
     }
 
     function publishContent(content, dialog){
-        closeDialog(dialog);
+        tinymce.get('content').setContent(content);
+        $('#publish').trigger('click');
     }
 
 })(jQuery, config);
