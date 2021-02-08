@@ -86,7 +86,11 @@ function run_smodinrewriter() {
 	define( 'SMODINREWRITER_ABSPATH', dirname( __FILE__ ) );
 	define( 'SMODINREWRITER_SLUG', 'smodinrewriter' );
 	define( 'SMODINREWRITER_NAME', 'Smodin Rewriter' );
+	define( 'SMODINREWRITER_SHORT_NAME', 'Smodin' );
 	define( 'SMODINREWRITER_VERSION', '1.0.0' );
+
+	// make this false when releasing.
+	define( 'SMODINREWRITER_DEBUG', true );
 
 	$plugin = SmodinRewriter::instance();
 	$plugin->run();

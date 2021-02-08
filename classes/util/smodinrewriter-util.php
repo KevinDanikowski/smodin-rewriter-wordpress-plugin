@@ -8,10 +8,24 @@ class SmodinRewriter_Util {
 
 	const API_URL = 'https://rewriter-paraphraser-text-changer-multi-language.p.rapidapi.com/rewrite';
 
+	/**
+	 * Logs the messages to debug.log file in a specific format.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
 	public static function log( $msg, $type = 'error' ) {
-		error_log( sprintf( '%s --- %s: %s', 'SmodinRewriter', strtoupper( $type ), $msg ) );
+		if ( SMODINREWRITER_DEBUG || 'error' === $type ) {
+			error_log( sprintf( '%s --- %s: %s', 'SmodinRewriter', strtoupper( $type ), $msg ) );
+		}
 	}
 
+	/**
+	 * Gets a specific option from the serialized options.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
 	public static function get_option( $key, $default = '' ) {
 		$value  = $default;
 		$settings = get_option( 'smodinrewriter-settings' );
@@ -25,6 +39,12 @@ class SmodinRewriter_Util {
 		return ! empty( $value ) ? $value : ( ! empty( $default ) ? $default : $value );
 	}
 
+	/**
+	 * Calls the API.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
 	public static function call_api( $content, $lang = 'en', $strength = 3, $apiKey = null ) {
 		$key = is_null( $apiKey ) ? self::get_option( 'apikey' ) : $apiKey;
 		$params  = array( 'text' => $content, 'language' => $lang, 'strength' => $strength );

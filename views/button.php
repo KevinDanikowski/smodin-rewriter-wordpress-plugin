@@ -16,7 +16,7 @@
 
 	.locker-loader {
 		z-index: 1001;
-		background: url('<?php echo includes_url( "images/wpspin.gif" )?>' ) no-repeat center center;
+		background: url('<?php echo includes_url( 'images/wpspin.gif' ); ?>' ) no-repeat center center;
 	}
 
 	#smodinrewriter {
@@ -27,7 +27,7 @@
 		padding: 15px;
 		width: 80%;
 		display: flex;
-	    flex-wrap: wrap;
+		flex-wrap: wrap;
 		flex-flow: column;
 	}
 
@@ -51,41 +51,43 @@
 		color: #ff0000;
 	}
 
+	.smodinrewriter-noclose .ui-dialog-titlebar-close {
+		display: none;
+	}
 
 </style>
 
 <div id="smodinrewriter">
 	<select name="lang" id="smodinrewriter-lang">
 	<?php
-		foreach( $languages as $symbol => $lang ) {
-	?>
-		<option value="<?php echo $symbol; ?>"><?php echo sprintf( '%s (%s)', $lang['language'], $lang['nativeName'] );?></option>
-	<?php
-		}
+	foreach ( $languages as $symbol => $lang ) {
+		?>
+		<option value="<?php echo $symbol; ?>" <?php echo $symbol === $post_lang ? 'selected' : ''; ?>><?php echo sprintf( '%s (%s)', $lang['language'], $lang['nativeName'] ); ?></option>
+		<?php
+	}
 	?>
 	</select>
 
 	<select name="strength" id="smodinrewriter-strength">
-		<option value="3"><?php _e( 'Strength', 'smodinrewriter' ); ?></option>
+		<option value="0"><?php _e( 'Strength', 'smodinrewriter' ); ?></option>
 	<?php
-		foreach( $strength as $weight ) {
-	?>
-		<option value="<?php echo $weight; ?>"><?php echo $weight;?></option>
-	<?php
-		}
+	foreach ( $strength as $weight ) {
+		?>
+		<option value="<?php echo $weight; ?>" <?php echo $weight === intval( $post_strength ) ? 'selected' : ''; ?>><?php echo $weight; ?></option>
+		<?php
+	}
 	?>
 	</select>
 
-	<input type="button" class="button button-primary" value="<?php _e( 'Smodin Rewrite', 'smodinrewriter' );?>" id="smodinrewriter-button">
+	<input type="button" class="button button-primary" value="<?php echo sprintf( __( 'Rewrite using %s', 'smodinrewriter' ), SMODINREWRITER_SHORT_NAME ); ?>" id="smodinrewriter-button">
 </div>
 
-<div id="smodinrewriter-modal" class="smodinrewriter-dialog" title="<?php _e( 'Smodin Rewrite', 'smodinrewriter' );?>">
+<div id="smodinrewriter-modal" class="smodinrewriter-dialog" title="<?php echo sprintf( __( 'Rewrite using %s', 'smodinrewriter' ), SMODINREWRITER_SHORT_NAME ); ?>">
 	<div class="smodinrewriter-error smodinrewriter-section"></div>
 	<div class="smodinrewriter-success smodinrewriter-section">
 		<?php wp_editor( '', 'smodinrewriter-rewritten', array( 'media_buttons' => false, 'teeny' => true, 'tinymce' => false, 'quicktags' => false ) ); ?>
 	</div>
 	<div class="smodinrewriter-confirm smodinrewriter-section">
 		<div class="smodinrewriter-prewrite-message"></div>
-		<button class="button button-primary" id="smodinrewriter-rewrite"><?php _e( 'Confirm', 'smodinrewriter' ); ?></button>
 	</div>
 </div>

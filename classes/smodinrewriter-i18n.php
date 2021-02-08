@@ -7,7 +7,6 @@
  *
  * @since      1.0.0
  */
-
 class SmodinRewriter_i18n {
 	/**
 	 * Load the plugin text domain for translation.

@@ -8,7 +8,6 @@
 
     function closeDialog(dialog){
         $(dialog).dialog( 'close' );
-        $(dialog).dialog( 'destroy' );
     }
 
     function initializeDialog(){
@@ -17,6 +16,7 @@
           autoOpen: false,
           height: 400,
           width: 700,
+          dialogClass: 'smodinrewriter-noclose',
           buttons: [{
               text: config.i10n.close_button,
               click: function() {
@@ -35,22 +35,11 @@
 
             var content = tinymce.get('content').getContent({format: 'raw'}).trim();
 
-            $( '.smodinrewriter-dialog' ).dialog( 'option', 'height', 400 );
-            $( '.smodinrewriter-dialog' ).dialog( 'option', 'width', 700 );
+            $( '.smodinrewriter-dialog' ).dialog( 'option', 'height', 200 );
+            $( '.smodinrewriter-dialog' ).dialog( 'option', 'width', 500 );
 
             $('#smodinrewriter-modal').dialog('open');
             $('#smodinrewriter-modal').lock();
-
-            if(content.length === 0){
-                $('.smodinrewriter-error').html(config.i10n.empty_content).show();
-                $('#smodinrewriter-modal').unlock();
-                return;
-            }
-            if(content.length > config.max){
-                $('.smodinrewriter-error').html(config.i10n.content_too_long).show();
-                $('#smodinrewriter-modal').unlock();
-                return;
-            }
 
             $.ajax({
                 url: ajaxurl,
@@ -68,60 +57,17 @@
                         return;
                     }
 
-                    $('#smodinrewriter-modal').unlock();
-
                     if(! data.success){
                         $('.smodinrewriter-error').html(data.data.msg).show();
-                        return;
-                    }
-
-                    $('.smodinrewriter-prewrite-message').html(data.data.message);
-                    $('.smodinrewriter-confirm').show();
-
-                    initRewriteWindow(content);
-                }
-            });
-        });
-    }
-
-    function initRewriteWindow(content){
-        $('#smodinrewriter-modal').on('click', '#smodinrewriter-rewrite', function(e){
-            e.preventDefault();
-
-            $('.smodinrewriter-section').hide();
-            $('#smodinrewriter-modal').lock();
-
-            $.ajax({
-                url: ajaxurl,
-                method: 'POST',
-                data: {
-                    content: content,
-                    lang: $('#smodinrewriter-lang').val(),
-                    strength: $('#smodinrewriter-strength').val(),
-                    nonce: config.ajax.nonce,
-                    action: 'smodinrewriter',
-                    _action: 'rewrite'
-                },
-                success: function(data){
-                    if(! data) {
-                        return;
-                    }
-
-                    $( '.smodinrewriter-dialog' ).dialog( 'option', 'height', 600 );
-                    $( '.smodinrewriter-dialog' ).dialog( 'option', 'width', 1000 );
-
-                    $('#smodinrewriter-modal').unlock();
-
-                    if(! data.success){
-                        $('.smodinrewriter-error').html(data.data.msg).show();
+                        $('#smodinrewriter-modal').unlock();
                         return;
                     }
 
                     $( '.smodinrewriter-dialog' ).dialog( 'option', 'buttons', [{
-                        text: config.i10n.publish_button,
-                        class: 'button button-primary',
+                        text: config.i10n.confirm_button,
+                        class: 'button button-primary smodinrewriter-confirm',
                         click: function() {
-                            publishContent( tinymce.get('smodinrewriter-rewritten').getContent({format: 'raw'}).trim(), $(this) );
+                            initRewriteWindow(content);
                         }
                       },
                       {
@@ -132,19 +78,94 @@
                         }
                     }] );
 
-                    $('.smodinrewriter-success').show();
-
-                    tinymce.execCommand('mceAddEditor', true, 'smodinrewriter-rewritten');
-                    tinymce.get('smodinrewriter-rewritten').setContent(data.data.rewritten);
-                                       
+                    $('.smodinrewriter-prewrite-message').html(data.data.message);
+                    $('.smodinrewriter-confirm').show();
+                    $('#smodinrewriter-modal').unlock();
                 }
             });
         });
     }
 
-    function publishContent(content, dialog){
-        tinymce.get('content').setContent(content);
-        $('#publish').trigger('click');
+    function initRewriteWindow(content){
+        $('.smodinrewriter-section').hide();
+        $('#smodinrewriter-modal').lock();
+
+        $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                content: content,
+                lang: $('#smodinrewriter-lang').val(),
+                strength: $('#smodinrewriter-strength').val(),
+                nonce: config.ajax.nonce,
+                action: 'smodinrewriter',
+                _action: 'rewrite'
+            },
+            success: function(data){
+                if(! data) {
+                    return;
+                }
+
+                $( '.smodinrewriter-dialog' ).dialog( 'option', 'height', 600 );
+                $( '.smodinrewriter-dialog' ).dialog( 'option', 'width', 1000 );
+
+                $('#smodinrewriter-modal').unlock();
+
+                if(! data.success){
+                    $('.smodinrewriter-error').html(data.data.msg).show();
+                    return;
+                }
+
+                $( '.smodinrewriter-dialog' ).dialog( 'option', 'buttons', [{
+                    text: config.i10n.draft_button,
+                    class: 'button button-secondary',
+                    click: function() {
+                        publishContent( tinymce.get('smodinrewriter-rewritten').getContent({format: 'raw'}).trim(), $(this), true );
+                    }
+                  },
+                  {
+                    text: config.i10n.publish_button,
+                    class: 'button button-primary',
+                    click: function() {
+                        publishContent( tinymce.get('smodinrewriter-rewritten').getContent({format: 'raw'}).trim(), $(this), false );
+                    }
+                  },
+                  {
+                    text: config.i10n.close_button,
+                    click: function() {
+                        closeDialog($(this));
+                        initializeDialog();
+                    }
+                }] );
+
+                $('.smodinrewriter-success').show();
+
+                tinymce.execCommand('mceAddEditor', true, 'smodinrewriter-rewritten');
+                tinymce.get('smodinrewriter-rewritten').setContent(data.data.rewritten);
+                                   
+            }
+        });
+    }
+
+    function publishContent(content, dialog, asDraft){
+        $('#smodinrewriter-modal').lock();
+        $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                content: content,
+                lang: $('#smodinrewriter-lang').val(),
+                strength: $('#smodinrewriter-strength').val(),
+                nonce: config.ajax.nonce,
+                action: 'smodinrewriter',
+                _action: 'publish',
+                draft: asDraft,
+                id: config.id
+            },
+            complete: function(data){
+                location.reload();
+            }
+        });
     }
 
 })(jQuery, config);
