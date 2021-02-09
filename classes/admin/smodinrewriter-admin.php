@@ -53,9 +53,59 @@ class SmodinRewriter_Admin {
 		add_action( 'wp_ajax_smodinrewriter', array( $this, 'ajax' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'post_submitbox_misc_actions', array( $this, 'show_button' ) );
+		add_action( 'after_setup_theme', array( $this, 'load_dependencies' ), 999 );
 
 		add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
 
+	}
+
+	/**
+	 * Load dependencies.
+	 */
+	function load_dependencies() {
+		if ( ! function_exists( 'tgmpa' ) ) {
+			include_once SMODINREWRITER_ABSPATH . '/lib/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php';
+		}
+
+		if ( function_exists( 'tgmpa' ) ) {
+			add_action( 'tgmpa_register', array( $this, 'tgmpa_register' ) );
+		}
+	}
+
+	/**
+	 * Initialize TGM.
+	 */
+	public function tgmpa_register() {
+		$plugins = array(
+			array(
+				'name'     => 'Classic Editor',
+				'slug'     => 'classic-editor',
+				'required' => true,
+			),
+		);
+		$config  = array(
+			'id'           => 'smodinrewriter',
+			// Unique ID for hashing notices for multiple instances of TGMPA.
+			'default_path' => '',
+			// Default absolute path to bundled plugins.
+			'menu'         => 'tgmpa-install-plugins',
+			// Menu slug.
+			'parent_slug'  => 'plugins.php',
+			// Parent menu slug.
+			'capability'   => 'manage_options',
+			// Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+			'has_notices'  => true,
+			// Show admin notices or not.
+			'dismissable'  => false,
+			// If false, a user cannot dismiss the nag message.
+			'dismiss_msg'  => sprintf( __( '%s will not work without this plugin.', 'smodinrewriter' ), SMODINREWRITER_NAME ),
+			// If 'dismissable' is false, this message will be output at top of nag.
+			'is_automatic' => false,
+			// Automatically activate plugins after installation or not.
+			'message'      => '',
+			// Message to output right before the plugins table.
+		);
+		tgmpa( $plugins, $config );
 	}
 
 	/**

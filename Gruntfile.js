@@ -14,7 +14,8 @@ module.exports = function(grunt) {
             '!.github/**',
             '!.git/**',
             '!bin/**',
-            '!.wordpress-org/**'
+            '!.wordpress-org/**',
+            '!lib/**',
         ],
         files_js: [
             '*.js',
