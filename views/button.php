@@ -92,7 +92,7 @@
 		<?php wp_editor( '', 'smodinrewriter-rewritten', array( 'media_buttons' => false, 'teeny' => true, 'tinymce' => false, 'quicktags' => false ) ); ?>
 	</div>
 	<div class="smodinrewriter-confirm smodinrewriter-section">
-		<div class="smodinrewriter-prewrite-disclaimer"><?php esc_html_e( 'Rarely HTML can break using the rewrite functionality and you may need to make manual adjustments afterwards. We recommend not including script, select, or complicated tag structure for best results.', 'smodinrewriter' );?></div>
+		<div class="smodinrewriter-prewrite-disclaimer"><?php esc_html_e( 'Rarely HTML can break using the rewrite functionality and you may need to make manual adjustments afterwards. We recommend not including script, select, or complicated tag structure for best results.', 'smodinrewriter' ); ?></div>
 		<div class="smodinrewriter-prewrite-message"></div>
 	</div>
 </div>

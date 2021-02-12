@@ -85,6 +85,9 @@ module.exports = function(grunt) {
                     mainFile: 'smodin-rewriter.php',
                     type: 'wp-plugin',
                     updateTimestamp: false,
+                    exclude: [
+                        'lib/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php'
+                    ],
                     processPot: function( pot, options ) {
                         // https://github.com/cedaro/grunt-wp-i18n/blob/develop/docs/examples/remove-package-metadata.md
                         var translation,

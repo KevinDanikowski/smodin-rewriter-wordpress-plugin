@@ -176,7 +176,7 @@ class SmodinRewriter_Admin {
 				),
 				'max' => self::MAX_LENGTH,
 				'i10n' => array(
-					'empty_content' => esc_html__( 'Cannot rewrite empty content.', 'smodinrewriter' ),
+					'empty_content' => esc_html__( 'Cannot rewrite empty content!', 'smodinrewriter' ),
 					'close_button' => esc_html__( 'Cancel', 'smodinrewriter' ),
 					'publish_button' => esc_html__( 'Publish', 'smodinrewriter' ),
 					'draft_button' => esc_html__( 'Save as Draft', 'smodinrewriter' ),

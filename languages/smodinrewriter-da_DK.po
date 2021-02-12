@@ -1,75 +1,94 @@
-# Copyright (C) 2021
-# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smodin Rewriter 1.0.0\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/smodin-rewriter-wordpress-plugin\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smodin-rewriter-"
+"wordpress-plugin\n"
 "POT-Creation-Date: 2021-02-12 07:07:56+00:00\n"
+"PO-Revision-Date: 2021-02-12 09:28+0000\n"
+"Last-Translator: WP Smodin Rewriter Translate Team\n"
+"Language-Team: Unknown\n"
+"Language: zxx\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: WP Smodin Rewriter Translate Team\n"
-"Language-Team: WP Smodin Rewriter Translate Team\n"
+"X-Loco-Source-Locale: en_IN\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Loco https://localise.biz/"
 
 #: classes/admin/smodinrewriter-admin.php:101
 msgid "%s will not work without this plugin."
 msgstr ""
+"%s fungerer ikke uden dette plugin.\n"
 
-#: classes/admin/smodinrewriter-admin.php:179
+#: classes/admin/smodinrewriter-admin.php:179 
 #: classes/admin/smodinrewriter-admin.php:229
 msgid "Cannot rewrite empty content!"
 msgstr ""
+"Kan ikke omskrive tomt indhold!\n"
 
 #: classes/admin/smodinrewriter-admin.php:180
 msgid "Cancel"
 msgstr ""
+"Afbestille\n"
 
 #: classes/admin/smodinrewriter-admin.php:181
 msgid "Publish"
 msgstr ""
+"Offentliggøre\n"
 
 #: classes/admin/smodinrewriter-admin.php:182
 msgid "Save as Draft"
 msgstr ""
+"Gem som kladde\n"
 
 #: classes/admin/smodinrewriter-admin.php:183
 msgid "Confirm"
 msgstr ""
+"Bekræfte\n"
 
 #: classes/admin/smodinrewriter-admin.php:203 views/settings.php:3
 msgid "Settings"
 msgstr ""
+"Indstillinger\n"
 
 #: classes/admin/smodinrewriter-admin.php:233
 msgid "Content (%1$d characters) exceeds %2$d characters. Cannot rewrite!"
 msgstr ""
+"Indhold (%1$d tegn) overstiger %2$d tegn. Kan ikke omskrive!\n"
 
 #: classes/admin/smodinrewriter-admin.php:242
 msgid "Rewrite %1$d characters in %2$s (%3$s) with strength %4$d?"
 msgstr ""
+"Omskrive %1$d tegn i %2$s (%3$s) med styrke %4$d?\n"
 
 #: classes/admin/smodinrewriter-admin.php:299
 msgid ""
 "The extension %s is not installed or enabled. Please make sure it is "
 "installed or rewriting will not work."
 msgstr ""
+"Udvidelsen %s er ikke installeret eller aktiveret. Sørg for, at den er "
+"installeret, eller omskrivning fungerer ikke.\n"
 
 #: classes/admin/smodinrewriter-admin.php:332
 msgid "Error from API: %s"
 msgstr ""
+"Fejl fra API: %s\n"
 
 #: classes/admin/smodinrewriter-admin.php:339
 msgid "Settings saved"
 msgstr ""
+"Indstillinger gemt\n"
 
 #: views/button.php:76
 msgid "Strength"
 msgstr ""
+"Styrke\n"
 
 #: views/button.php:86 views/button.php:89
 msgid "Rewrite using %s"
 msgstr ""
+"Omskriv med %s\n"
 
 #: views/button.php:95
 msgid ""
@@ -77,18 +96,25 @@ msgid ""
 "make manual adjustments afterwards. We recommend not including script, "
 "select, or complicated tag structure for best results."
 msgstr ""
+"Sjældent kan HTML bryde ved hjælp af omskrivningsfunktionaliteten, og du "
+"skal muligvis foretage manuelle justeringer bagefter. Vi anbefaler ikke at "
+"medtage script, select eller kompliceret tagstruktur for de bedste "
+"resultater.\n"
 
 #: views/settings.php:16
 msgid "General"
 msgstr ""
+"Generel\n"
 
 #: views/settings.php:21
 msgid "API key"
 msgstr ""
+"API-nøgle\n"
 
 #: views/settings.php:32
 msgid "Save Settings"
 msgstr ""
+"Gem indstillinger\n"
 
 #. Description of the plugin/theme
 msgid "Smodin Rewriter"

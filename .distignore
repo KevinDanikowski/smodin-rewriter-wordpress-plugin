@@ -1,0 +1,13 @@
+.distignore
+.git
+.gitignore
+.wordpress-org
+Gruntfile.js
+composer.json
+composer.lock
+logs
+node_modules
+package-lock.json
+package.json
+phpcs.xml
+languages/language strings.xlsx

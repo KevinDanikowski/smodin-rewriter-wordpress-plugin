@@ -18,7 +18,7 @@ class SmodinRewriter_i18n {
 		load_plugin_textdomain(
 			'smodinrewriter',
 			false,
-			dirname( dirname( SMODINREWRITER_BASENAME ) ) . '/languages/'
+			dirname( SMODINREWRITER_BASENAME ) . '/languages/'
 		);
 
 	}
