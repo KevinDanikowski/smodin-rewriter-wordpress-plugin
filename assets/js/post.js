@@ -35,8 +35,8 @@
 
             var content = tinymce.get('content').getContent({format: 'raw'}).trim();
 
-            $( '.smodinrewriter-dialog' ).dialog( 'option', 'height', 200 );
-            $( '.smodinrewriter-dialog' ).dialog( 'option', 'width', 500 );
+            $( '.smodinrewriter-dialog' ).dialog( 'option', 'height', 300 );
+            $( '.smodinrewriter-dialog' ).dialog( 'option', 'width', 800 );
 
             $('#smodinrewriter-modal').dialog('open');
             $('#smodinrewriter-modal').lock();
@@ -78,6 +78,7 @@
                         }
                     }] );
 
+                    $('.smodinrewriter-prewrite-disclaimer').addClass('notice').addClass('notice-info');
                     $('.smodinrewriter-prewrite-message').html(data.data.message);
                     $('.smodinrewriter-confirm').show();
                     $('#smodinrewriter-modal').unlock();
