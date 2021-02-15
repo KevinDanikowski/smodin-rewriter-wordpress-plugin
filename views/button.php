@@ -57,6 +57,19 @@
 
 	.smodinrewriter-prewrite-disclaimer {
 		margin-bottom: 10px;
+		background-color: #ececec;
+	}
+
+	button.smodinrewriter-link, button.smodinrewriter-link:hover {
+		background: none!important;
+		border: none;
+		padding: 0!important;
+		/*input has OS specific font-family*/
+		color: #069;
+		text-decoration: underline;
+		cursor: pointer;
+		box-shadow: none;
+		width: auto !important;
 	}
 
 </style>
@@ -95,4 +108,6 @@
 		<div class="smodinrewriter-prewrite-disclaimer"><?php esc_html_e( 'Rarely HTML can break using the rewrite functionality and you may need to make manual adjustments afterwards. We recommend not including script, select, or complicated tag structure for best results.', 'smodinrewriter' ); ?></div>
 		<div class="smodinrewriter-prewrite-message"></div>
 	</div>
+
+	<button style="display: none" id="smodinrewriter-clipboard"></button>
 </div>

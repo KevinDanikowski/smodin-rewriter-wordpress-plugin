@@ -9,11 +9,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Smodin Rewriter
- * Plugin URI:
+ * Plugin URI:		  https://smodin.me/
  * Description:       Smodin Rewriter
  * Version:           1.0.0
- * Author:
- * Author URI:
+ * Author:            Smodin
+ * Author URI:		  https://smodin.me/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       smodinrewriter
@@ -88,6 +88,7 @@ function run_smodinrewriter() {
 	define( 'SMODINREWRITER_NAME', 'Smodin Rewriter' );
 	define( 'SMODINREWRITER_SHORT_NAME', 'Smodin' );
 	define( 'SMODINREWRITER_VERSION', '1.0.0' );
+	define( 'SMODINREWRITER_EMAILID', 'customer@app-translation.com' );
 
 	// make this false when releasing.
 	define( 'SMODINREWRITER_DEBUG', true );

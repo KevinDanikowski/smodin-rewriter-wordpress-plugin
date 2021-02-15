@@ -29,6 +29,13 @@
     function init() {
         initializeDialog();
 
+        var sr_clipboard = new ClipboardJS('#smodinrewriter-clipboard', {
+            container: document.getElementById('smodinrewriter-modal')
+        });
+        sr_clipboard.on('success', function(e) {
+            // no message needs to be shown.
+        });
+
         $('#smodinrewriter-button').on('click', function(e){
             e.preventDefault();
             $('.smodinrewriter-section').hide();
@@ -118,6 +125,16 @@
                 }
 
                 $( '.smodinrewriter-dialog' ).dialog( 'option', 'buttons', [{
+                    text: config.i10n.email_button,
+                    class: 'smodinrewriter-link',
+                    click: function() {
+                        $('#smodinrewriter-clipboard').attr('data-clipboard-text', data.data.debug);
+                        // cannot trigger this in the below click, so keeping it here.
+                        $('#smodinrewriter-clipboard').trigger('click');
+                        location.href = 'mailto:' + data.data.mailto;
+                    }
+                  },
+                  {
                     text: config.i10n.draft_button,
                     class: 'button button-secondary',
                     click: function() {

@@ -168,7 +168,7 @@ class SmodinRewriter_Admin {
 
 		add_thickbox();
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
-		wp_enqueue_script( 'smodinrewriter-admin', SMODINREWRITER_ABSURL . '/assets/js/post.js', array( 'jquery', 'jquery-ui-dialog' ), SMODINREWRITER_VERSION, false );
+		wp_enqueue_script( 'smodinrewriter-admin', SMODINREWRITER_ABSURL . '/assets/js/post.js', array( 'jquery', 'jquery-ui-dialog', 'clipboard' ), SMODINREWRITER_VERSION, false );
 		wp_localize_script(
 			'smodinrewriter-admin', 'config', array(
 				'ajax' => array(
@@ -181,6 +181,7 @@ class SmodinRewriter_Admin {
 					'publish_button' => esc_html__( 'Publish', 'smodinrewriter' ),
 					'draft_button' => esc_html__( 'Save as Draft', 'smodinrewriter' ),
 					'confirm_button' => esc_html__( 'Confirm', 'smodinrewriter' ),
+					'email_button' => esc_html__( 'Something Broke?', 'smodinrewriter' ),
 				),
 				'id' => $post->ID,
 			)
@@ -250,7 +251,22 @@ class SmodinRewriter_Admin {
 
 				SmodinRewriter_Util::log( sprintf( 'Rewriting %s of length %d', $content, strlen( $content ) ), 'debug' );
 				$new = SmodinRewriter_Util::call_api( $content, $lang, intval( $strength ) );
-				wp_send_json_success( array( 'content' => $content, 'rewritten' => $new ) );
+
+				$debug = sprintf(
+					'
+				<b>%s</b>: %s<br>
+				<b>%s</b>: %s<br>
+				<b>%s</b>: %s<br>
+				<b>%s</b>: %s<br>
+				',
+					'Text', $content,
+					'Results', $new,
+					'Language', $lang,
+					'Strength', $strength
+				);
+
+				$mailto = sprintf( '%s?subject=WP Plugin Issue %s&body=Click Ctrl+V/Cmd+V to paste the debug information here<br><br>', SMODINREWRITER_EMAILID, date_i18n( 'Y-m-d' ) );
+				wp_send_json_success( array( 'content' => $content, 'rewritten' => $new, 'mailto' => $mailto, 'debug' => $debug ) );
 				break;
 
 			case 'publish':
