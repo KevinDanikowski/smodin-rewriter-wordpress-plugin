@@ -129,7 +129,6 @@
                     class: 'smodinrewriter-link',
                     click: function() {
                         $('#smodinrewriter-clipboard').attr('data-clipboard-text', data.data.debug);
-                        // cannot trigger this in the below click, so keeping it here.
                         $('#smodinrewriter-clipboard').trigger('click');
                         location.href = 'mailto:' + data.data.mailto;
                     }
