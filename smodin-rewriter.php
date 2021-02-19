@@ -9,11 +9,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Smodin Rewriter
- * Plugin URI:		  https://smodin.me/
+ * Plugin URI:        https://smodin.me/
  * Description:       Smodin Rewriter
  * Version:           1.0.0
  * Author:            Smodin
- * Author URI:		  https://smodin.me/
+ * Author URI:        https://smodin.me/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       smodinrewriter

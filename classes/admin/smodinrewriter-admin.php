@@ -273,10 +273,12 @@ class SmodinRewriter_Admin {
 				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => 3, 'min_range' => 1, 'max_range' => 3 ) ) );
 				$lang = filter_var( $_POST['lang'], FILTER_SANITIZE_STRING );
 
+				$id = filter_var( $_POST['id'], FILTER_VALIDATE_INT );
+
 				// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-				wp_update_post( array( 'ID' => $_POST['id'], 'post_content' => $_POST['content'], 'post_status' => $_POST['draft'] == 'true' ? 'draft' : 'publish' ) );
-				update_post_meta( $_POST['id'], 'smodinrewriter-lang', $lang );
-				update_post_meta( $_POST['id'], 'smodinrewriter-strength', $strength );
+				wp_update_post( array( 'ID' => $id, 'post_content' => wp_filter_post_kses( $_POST['content'] ), 'post_status' => sanitize_text_field( $_POST['draft'] ) == 'true' ? 'draft' : 'publish' ) );
+				update_post_meta( $id, 'smodinrewriter-lang', $lang );
+				update_post_meta( $id, 'smodinrewriter-strength', $strength );
 				break;
 		}
 	}
