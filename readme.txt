@@ -26,22 +26,31 @@ A few of our supported languages:
 * Dutch
 * Arabic
 * Turkish
-* catalan
+* Catalan
 * Polish
-* malay
-* philipino
+* Malay
+* Filipino
 * Danish
 * Ukranian
 * Romanian
 * Norwegian
 * Hungarian
-* Chinese
 
 == Installation ==
+
+1. Search for Smodin Rewriter in your WordPress backend and click install, or download the smodin-rewriter.zip file and unzip it.
+2. If you downloaded the zip, upload the smodin-rewriter folder into wp-content/plugins folder
+3. Activate the plugin in your WordPress Admin area.
+4. Go to "Settings" to add the API key
+5. Go to a post to rewrite
 
 == Frequently Asked Questions ==
 
 == Screenshots ==
+
+1. How to trigger the rewrite
+2. Rewrite confirmation
+3. Rewrite successful
 
 
 == Changelog ==
