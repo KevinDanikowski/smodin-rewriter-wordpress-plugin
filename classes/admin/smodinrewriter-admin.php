@@ -120,13 +120,31 @@ class SmodinRewriter_Admin {
 		// show button only if apikey is valid
 		if ( ! empty( SmodinRewriter_Util::get_option( 'apikey' ) ) ) {
 			$languages = $this->get_languages();
-			$strength = array( 1, 2, 3 );
+			$strength = $this->get_strengths();
 
 			$post_lang = get_post_meta( $post->ID, 'smodinrewriter-lang', true );
 			$post_strength = get_post_meta( $post->ID, 'smodinrewriter-strength', true );
 
+			if ( empty( $post_lang ) ) {
+				$post_lang = SmodinRewriter_Util::get_option( 'lang' );
+			}
+			if ( empty( $post_strength ) ) {
+				$post_strength = SmodinRewriter_Util::get_option( 'strength' );
+			}
+
 			include_once SMODINREWRITER_ABSPATH . '/views/button.php';
 		}
+	}
+
+
+	/**
+	 * Gets the supported strengths.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function get_strengths() {
+		return array( 1, 2, 3 );
 	}
 
 	/**
@@ -317,6 +335,10 @@ class SmodinRewriter_Admin {
 			$this->error = sprintf( __( 'The extension %s is not installed or enabled. Please make sure it is installed or rewriting will not work.', 'smodinrewriter' ), '<a href="https://www.php.net/manual/en/mbstring.installation.php" target="_new">mbstring</a>' );
 			return;
 		}
+
+		$languages = $this->get_languages();
+		$strength = $this->get_strengths();
+
 		include_once SMODINREWRITER_ABSPATH . '/views/settings.php';
 	}
 

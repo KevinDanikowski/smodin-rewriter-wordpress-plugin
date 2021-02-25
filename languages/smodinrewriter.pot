@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Smodin Rewriter 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/smodin-rewriter-wordpress-plugin\n"
-"POT-Creation-Date: 2021-02-19 05:18:43+00:00\n"
+"POT-Creation-Date: 2021-02-25 05:08:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,58 +16,58 @@ msgstr ""
 msgid "%s will not work without this plugin."
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:179
-#: classes/admin/smodinrewriter-admin.php:230
+#: classes/admin/smodinrewriter-admin.php:197
+#: classes/admin/smodinrewriter-admin.php:248
 msgid "Cannot rewrite empty content!"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:180
+#: classes/admin/smodinrewriter-admin.php:198
 msgid "Cancel"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:181
+#: classes/admin/smodinrewriter-admin.php:199
 msgid "Publish"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:182
+#: classes/admin/smodinrewriter-admin.php:200
 msgid "Save as Draft"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:183
+#: classes/admin/smodinrewriter-admin.php:201
 msgid "Confirm"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:184
+#: classes/admin/smodinrewriter-admin.php:202
 msgid "Something Broke?"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:204 views/settings.php:3
+#: classes/admin/smodinrewriter-admin.php:222 views/settings.php:3
 msgid "Settings"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:234
+#: classes/admin/smodinrewriter-admin.php:252
 msgid "Content (%1$d characters) exceeds %2$d characters. Cannot rewrite!"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:243
+#: classes/admin/smodinrewriter-admin.php:261
 msgid "Rewrite %1$d characters in %2$s (%3$s) with strength %4$d?"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:317
+#: classes/admin/smodinrewriter-admin.php:335
 msgid ""
 "The extension %s is not installed or enabled. Please make sure it is "
 "installed or rewriting will not work."
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:350
+#: classes/admin/smodinrewriter-admin.php:372
 msgid "Error from API: %s"
 msgstr ""
 
-#: classes/admin/smodinrewriter-admin.php:357
+#: classes/admin/smodinrewriter-admin.php:379
 msgid "Settings saved"
 msgstr ""
 
-#: views/button.php:89
+#: views/button.php:89 views/settings.php:39
 msgid "Strength"
 msgstr ""
 
@@ -90,7 +90,11 @@ msgstr ""
 msgid "API key"
 msgstr ""
 
-#: views/settings.php:32
+#: views/settings.php:26
+msgid "Language"
+msgstr ""
+
+#: views/settings.php:61
 msgid "Save Settings"
 msgstr ""
 
