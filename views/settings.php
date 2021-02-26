@@ -20,7 +20,7 @@
 				<div class="sr-form-group">
 					<label for="apikey"><?php echo __( 'API key', 'smodinrewriter' ); ?></label>
 					<input id="apikey" type="password" class="sr-form-control regular-text" name="apikey" value="<?php echo esc_attr( SmodinRewriter_Util::get_option( 'apikey' ) ); ?>" />
-					<p class="description"><?php echo sprintf( 'Need an API key? Get one %shere%s', '<a href="https://rapidapi.com/smodin/api/rewriter-paraphraser-text-changer-multi-language" target="_new">', '</a>' ); ?></p>
+					<p class="description"><?php echo sprintf( __( 'Need an API key? Get one %shere%s', 'smodinrewriter'), '<a href="https://rapidapi.com/smodin/api/rewriter-paraphraser-text-changer-multi-language" target="_new">', '</a>' ); ?></p>
 				</div>
 				<div class="sr-form-group">
 					<label for="lang"><?php echo __( 'Language', 'smodinrewriter' ); ?></label>
