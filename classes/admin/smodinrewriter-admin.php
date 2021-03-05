@@ -202,6 +202,7 @@ class SmodinRewriter_Admin {
 					'email_button' => esc_html__( 'Something Broke?', 'smodinrewriter' ),
 				),
 				'id' => $post->ID,
+				'url' => admin_url( 'post.php?action=edit&post=' . $post->ID ),
 			)
 		);
 	}

@@ -180,7 +180,8 @@
                 id: config.id
             },
             complete: function(data){
-                location.reload();
+                window.onbeforeunload = null;
+                location.href = config.url;
             }
         });
     }
