@@ -180,7 +180,10 @@
                 id: config.id
             },
             complete: function(data){
+                console.log('b4 null');
                 window.onbeforeunload = null;
+                console.log('b4 off');
+                $(window).off('beforeunload');
                 location.href = config.url;
             }
         });
