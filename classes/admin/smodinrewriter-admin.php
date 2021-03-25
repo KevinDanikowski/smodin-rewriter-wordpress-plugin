@@ -50,6 +50,7 @@ class SmodinRewriter_Admin {
 	 */
 	private function hooks() {
 		add_action( 'admin_menu', array( $this, 'setup_menu' ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ), 10, 1 );
 		add_action( 'wp_ajax_smodinrewriter', array( $this, 'ajax' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'post_submitbox_misc_actions', array( $this, 'show_button' ) );
@@ -380,4 +381,19 @@ class SmodinRewriter_Admin {
 		$this->notice = __( 'Settings saved', 'smodinrewriter' );
 	}
 
+	/**
+	 * Redirect to the settings page on activation.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
+	public function admin_init() {
+		if ( get_option( 'smodinrewriter-temp-activated' ) ) {
+			delete_option( 'smodinrewriter-temp-activated' );
+			if ( ! headers_sent() ) {
+				wp_redirect( admin_url( 'admin.php?page=' . SMODINREWRITER_SLUG ) );
+				exit();
+			}
+		}
+	}
 }

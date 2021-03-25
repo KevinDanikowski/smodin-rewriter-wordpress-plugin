@@ -18,6 +18,7 @@ class SmodinRewriter_Activator {
 	 */
 	public static function activate() {
 		add_option( 'smodinrewriter-activated', true );
+		add_option( 'smodinrewriter-temp-activated', true );
 	}
 
 
