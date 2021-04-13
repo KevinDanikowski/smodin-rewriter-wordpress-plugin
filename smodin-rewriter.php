@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Smodin Rewriter
- * Plugin URI:        https://smodin.me/
+ * Plugin URI:        https://smodin.me/services
  * Description:       Smodin Rewriter
  * Version:           1.0.0
  * Author:            Smodin
