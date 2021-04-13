@@ -4,6 +4,8 @@ Tags: smodin, rewriter, spinnner
 Requires at least: 4.9
 Tested up to: 5.7
 Stable tag: 1.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Smodin rewriter plugin is meant to be used with the smodin rewriter API available at https://rapidapi.com/smodin/api/rewriter-paraphraser-text-changer-multi-language. The plugin allows one to rewrite text in various languages for wordpress posts one at a time.
 
