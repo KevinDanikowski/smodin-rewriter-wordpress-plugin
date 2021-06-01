@@ -242,7 +242,7 @@ class SmodinRewriter_Admin {
 		$return = null;
 		switch ( $_POST['_action'] ) {
 			case 'pre-rewrite':
-				$content = trim( $_POST['content'] );
+				$content = wp_filter_post_kses( trim( $_POST['content'] ) );
 				$text_only = strip_tags( $content );
 				$length = mb_strlen( $content );
 
@@ -258,16 +258,16 @@ class SmodinRewriter_Admin {
 				$languages = $this->get_languages();
 
 				$lang = filter_var( $_POST['lang'], FILTER_SANITIZE_STRING );
-				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => 3, 'min_range' => 1, 'max_range' => 3 ) ) );
+				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => self::DEFAULT_STRENGTH, 'min_range' => 1, 'max_range' => 3 ) ) );
 
 				wp_send_json_success( array( 'count' => $length, 'message' => sprintf( esc_html__( 'Rewrite %1$d characters in %2$s (%3$s) with strength %4$d?', 'smodinrewriter' ), $length, $languages[ $lang ]['language'], $languages[ $lang ]['nativeName'], intval( $strength ) ) ) );
 				break;
 
 			case 'rewrite':
-				$content = trim( $_POST['content'] );
+				$content = wp_filter_post_kses( trim( $_POST['content'] ) );
 
 				$lang = filter_var( $_POST['lang'], FILTER_SANITIZE_STRING );
-				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => 3, 'min_range' => 1, 'max_range' => 3 ) ) );
+				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => self::DEFAULT_STRENGTH, 'min_range' => 1, 'max_range' => 3 ) ) );
 
 				SmodinRewriter_Util::log( sprintf( 'Rewriting %s of length %d', $content, strlen( $content ) ), 'debug' );
 				$new = SmodinRewriter_Util::call_api( $content, $lang, intval( $strength ) );
@@ -359,17 +359,16 @@ class SmodinRewriter_Admin {
 		if ( ! $settings ) {
 			$settings = array();
 		}
-		$unset = array( 'nonce', '_wp_http_referer', 'tab', 'sr-settings-button' );
 
-		$config = $_POST;
-		foreach ( $unset as $key ) {
-			unset( $config[ $key ] );
+		$params = array( 'apikey', 'lang', 'strength' );
+		foreach ( $params as $key ) {
+			$config[ $key ] = sanitize_text_field( $_POST[ $key ] );
 		}
 
 		delete_option( 'smodinrewriter-settings' );
 
 		// let's check if the API key works
-		$result = SmodinRewriter_Util::call_api( 's', 'en', 3, $_POST['apikey'] );
+		$result = SmodinRewriter_Util::call_api( 's', 'en', 3, $config['apikey'] );
 		if ( is_wp_error( $result ) ) {
 			$this->error = sprintf( __( 'Error from API: %s', 'smodinrewriter' ), $result->get_error_message() );
 			return;

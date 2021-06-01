@@ -91,7 +91,7 @@ function run_smodinrewriter() {
 	define( 'SMODINREWRITER_EMAILID', 'customer@app-translation.com' );
 
 	// make this false when releasing.
-	define( 'SMODINREWRITER_DEBUG', true );
+	define( 'SMODINREWRITER_DEBUG', false );
 
 	$plugin = SmodinRewriter::instance();
 	$plugin->run();
