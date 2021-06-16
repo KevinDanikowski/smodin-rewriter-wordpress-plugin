@@ -154,7 +154,7 @@ class SmodinRewriter_Admin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function get_languages() {
+	private function get_languages( $specific = null ) {
 		$languages = get_transient( 'smodin-languages' );
 		if ( ! $languages ) {
 			ob_start();
@@ -168,6 +168,10 @@ class SmodinRewriter_Admin {
 
 			// cache languages for 1 month
 			set_transient( 'smodin-languages', $languages, MONTH_IN_SECONDS );
+		}
+
+		if ( $specific ) {
+			return array_key_exists( $specific, $languages ) ? $languages[ $specific ] : '';
 		}
 		return $languages;
 	}
@@ -255,22 +259,32 @@ class SmodinRewriter_Admin {
 					break;
 				}
 
-				$languages = $this->get_languages();
+				$lang = $this->get_languages( filter_var( $_POST['lang'], FILTER_SANITIZE_STRING ) );
 
-				$lang = filter_var( $_POST['lang'], FILTER_SANITIZE_STRING );
+				// if the language is not a valid language, abort!
+				if ( empty( $lang ) ) {
+					wp_send_json_error();
+				}
+
 				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => self::DEFAULT_STRENGTH, 'min_range' => 1, 'max_range' => 3 ) ) );
 
-				wp_send_json_success( array( 'count' => $length, 'message' => sprintf( esc_html__( 'Rewrite %1$d characters in %2$s (%3$s) with strength %4$d?', 'smodinrewriter' ), $length, $languages[ $lang ]['language'], $languages[ $lang ]['nativeName'], intval( $strength ) ) ) );
+				wp_send_json_success( array( 'count' => $length, 'message' => sprintf( esc_html__( 'Rewrite %1$d characters in %2$s (%3$s) with strength %4$d?', 'smodinrewriter' ), $length, $lang['language'], $lang['nativeName'], intval( $strength ) ) ) );
 				break;
 
 			case 'rewrite':
 				$content = wp_filter_post_kses( trim( $_POST['content'] ) );
 
-				$lang = filter_var( $_POST['lang'], FILTER_SANITIZE_STRING );
+				$lang = $this->get_languages( filter_var( $_POST['lang'], FILTER_SANITIZE_STRING ) );
+
+				// if the language is not a valid language, abort!
+				if ( empty( $lang ) ) {
+					wp_send_json_error();
+				}
+
 				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => self::DEFAULT_STRENGTH, 'min_range' => 1, 'max_range' => 3 ) ) );
 
 				SmodinRewriter_Util::log( sprintf( 'Rewriting %s of length %d', $content, strlen( $content ) ), 'debug' );
-				$new = SmodinRewriter_Util::call_api( $content, $lang, intval( $strength ) );
+				$new = SmodinRewriter_Util::call_api( $content, $lang['symbol'], intval( $strength ) );
 
 				$debug = sprintf(
 					'
@@ -281,7 +295,7 @@ class SmodinRewriter_Admin {
 				',
 					'Text', $content,
 					'Results', $new,
-					'Language', $lang,
+					'Language', $lang['symbol'],
 					'Strength', $strength
 				);
 
@@ -291,13 +305,18 @@ class SmodinRewriter_Admin {
 
 			case 'publish':
 				$strength = filter_var( $_POST['strength'], FILTER_VALIDATE_INT, array( 'options' => array( 'default' => 3, 'min_range' => 1, 'max_range' => 3 ) ) );
-				$lang = filter_var( $_POST['lang'], FILTER_SANITIZE_STRING );
+				$lang = $this->get_languages( filter_var( $_POST['lang'], FILTER_SANITIZE_STRING ) );
+
+				// if the language is not a valid language, abort!
+				if ( empty( $lang ) ) {
+					return;
+				}
 
 				$id = filter_var( $_POST['id'], FILTER_VALIDATE_INT );
 
 				// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 				wp_update_post( array( 'ID' => $id, 'post_content' => wp_filter_post_kses( $_POST['content'] ), 'post_status' => sanitize_text_field( $_POST['draft'] ) == 'true' ? 'draft' : 'publish' ) );
-				update_post_meta( $id, 'smodinrewriter-lang', $lang );
+				update_post_meta( $id, 'smodinrewriter-lang', $lang['symbol'] );
 				update_post_meta( $id, 'smodinrewriter-strength', $strength );
 				break;
 		}
@@ -331,7 +350,7 @@ class SmodinRewriter_Admin {
 		wp_enqueue_script( 'smodinrewriter-settings', SMODINREWRITER_ABSURL . '/assets/js/settings.js', array( 'jquery', 'jquery-ui-tabs' ), SMODINREWRITER_VERSION, false );
 		wp_localize_script( 'smodinrewriter-settings', 'config', array() );
 		wp_enqueue_style( 'smodinrewriter-admin', SMODINREWRITER_ABSURL . '/assets/css/admin.css', array(), SMODINREWRITER_VERSION, false );
-		wp_enqueue_style( 'smodinrewriter-jquery-ui', sprintf( '//ajax.googleapis.com/ajax/libs/jqueryui/%s/themes/smoothness/jquery-ui.css', $wp_scripts->registered['jquery-ui-core']->ver ), array( 'smodinrewriter-admin' ), SMODINREWRITER_VERSION );
+		wp_enqueue_style( 'smodinrewriter-jquery-ui', SMODINREWRITER_ABSURL . '/assets/css/lib/jquery-ui/jquery-ui.min.css', array( 'smodinrewriter-admin' ), SMODINREWRITER_VERSION );
 
 		if ( ! extension_loaded( 'mbstring' ) ) {
 			$this->error = sprintf( __( 'The extension %s is not installed or enabled. Please make sure it is installed or rewriting will not work.', 'smodinrewriter' ), '<a href="https://www.php.net/manual/en/mbstring.installation.php" target="_new">mbstring</a>' );

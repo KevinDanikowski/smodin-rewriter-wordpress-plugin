@@ -3,11 +3,11 @@
 	<h2><?php _e( 'Settings', 'smodinrewriter' ); ?></h2>
 
 	<?php if ( $this->notice ) { ?>
-		<div class="updated"><p><?php echo $this->notice; ?></p></div>
+		<div class="updated"><p><?php echo esc_html( $this->notice ); ?></p></div>
 	<?php } ?>
 
 	<?php if ( $this->error ) { ?>
-		<div class="error"><p><?php echo $this->error; ?></p></div>
+		<div class="error"><p><?php echo esc_html( $this->error ); ?></p></div>
 	<?php } ?>
 
 	<form method="post" action="">
